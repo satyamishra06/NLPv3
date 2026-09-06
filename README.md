@@ -24,7 +24,7 @@ A large proportion of frequently asked student queries are currently handled thr
 ## Scope
 
 - **Domain:** Student support topics only — admissions, fees, examinations, library, and hostel.
-- **Knowledge base:** 5–10 PDF or plain-text documents, such as department FAQs and official notices.
+- **Knowledge base:** 5–10 documents in PDF, DOCX, TXT, HTML, or Markdown format — such as department FAQs and official notices.
 - **Interaction mode:** Text-only input and output (no voice interface, no multi-language support).
 
 ---
@@ -35,19 +35,19 @@ A large proportion of frequently asked student queries are currently handled thr
 NLPv3/
 │
 ├── data/                        # All data-related files
-│   ├── raw/                     # PLACE: Original PDF documents here
+│   ├── raw/                     # PLACE: Original documents here
 │   │   ├── admissions_faq.pdf
-│   │   ├── fee_structure.pdf
-│   │   ├── exam_schedule.pdf
-│   │   ├── library_info.pdf
-│   │   └── hostel_rules.pdf
+│   │   ├── fee_structure.docx
+│   │   ├── exam_schedule.txt
+│   │   ├── library_info.html
+│   │   └── hostel_rules.md
 │   │
 │   └── output/                  # AUTO-GENERATED: Processed chunks
 │       └── chunks.json          # Output from text_processor.py
 │
 ├── src/                         # All source code
 │   ├── __init__.py
-│   ├── text_processor.py        # Phase 1: PDF extraction, cleaning, chunking
+│   ├── text_processor.py        # Phase 1: Multi-format extraction, cleaning, chunking
 │   ├── rag_engine.py            # Phase 2: FAISS indexing, retrieval, LLM generation
 │   └── app.py                   # Phase 4: Streamlit chatbot UI
 │
@@ -77,7 +77,7 @@ NLPv3/
 
 | What | Where | Who |
 |------|-------|-----|
-| Original college PDFs | `data/raw/` | Member 1 |
+| Original college documents | `data/raw/` | Member 1 |
 | Cleaned chunked data | `data/output/chunks.json` | Auto-generated |
 | Text processing code | `src/text_processor.py` | Member 1 |
 | RAG pipeline code | `src/rag_engine.py` | Member 2 |
@@ -93,17 +93,17 @@ NLPv3/
 ## Phases
 
 ### Phase 1: Document Collection & Processing
-- Collect 5-10 PDFs (admissions, fees, exams, library, hostel)
-- Extract text using `pdfplumber`
+- Collect 5-10 documents (PDF, DOCX, TXT, HTML, MD)
+- Extract text using format-specific extractors (pdfplumber, python-docx, BeautifulSoup)
 - Clean and normalize text
 - Split into 300-500 character chunks with overlap using LangChain
 - **Output:** `data/output/chunks.json`
 
 ### Phase 2: FAISS Indexing & RAG Pipeline
-- Generate embeddings using sentence-transformers or OpenAI embeddings
+- Generate embeddings using sentence-transformers (all-MiniLM-L6-v2)
 - Build FAISS vector index from chunked data
 - Implement retrieval function (top-k search)
-- Connect LLM (OpenAI/local) to generate answers from retrieved context
+- Connect Ollama (llama3.2) to generate answers from retrieved context
 - Design prompts with system constraint and few-shot examples
 - **Output:** `src/rag_engine.py` with `retrieve()` and `generate_answer()`
 
@@ -144,7 +144,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Add your documents
-Place all PDF files in `data/raw/` folder.
+Place all supported files (PDF, DOCX, TXT, HTML, MD) in `data/raw/` folder.
 
 ### 5. Run Phase 1 - Document Processing
 ```bash
@@ -152,18 +152,32 @@ python src/text_processor.py
 ```
 This will generate `data/output/chunks.json`.
 
+### 6. Run Phase 2 - Build FAISS Index
+```bash
+python src/rag_engine.py build
+```
+This will generate `models/faiss_index/index.faiss` and `chunks.pkl`.
+
+### 7. Run Phase 2 - Ask a Question
+```bash
+python src/rag_engine.py query "What are the admission requirements?"
+```
+
 ---
 
 ## Dependencies
 
 ```
 pdfplumber
+python-docx
+beautifulsoup4
+markdown
 langchain
 langchain-text-splitters
-sentence-transformers
 faiss-cpu
-openai
-streamlit
+sentence-transformers
+numpy
+ollama
 ```
 
 ---
