@@ -8,8 +8,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 CHUNK_SIZE = 400
 CHUNK_OVERLAP = 50
-RAW_DIR = "E:\\Main_pro\\NLPv3\\data\\raw"
-OUTPUT_DIR = "E:\\Main_pro\\NLPv3\\data\\output"
+RAW_DIR = "data/raw"
+OUTPUT_DIR = "data/output"
 SUPPORTED_FORMATS = (".pdf", ".docx", ".txt", ".html", ".md")
 
 
@@ -27,13 +27,19 @@ def extract_text_docx(file_path: str) -> str:
     doc = docx.Document(file_path)
     text = "\n".join([para.text for para in doc.paragraphs if para.text.strip()])
     return text
+
+
 def extract_text_txt(file_path: str) -> str:
     with open(file_path, "r", encoding="utf-8") as f:
         return f.read()
+
+
 def extract_text_html(file_path: str) -> str:
     with open(file_path, "r", encoding="utf-8") as f:
         soup = BeautifulSoup(f.read(), "html.parser")
         return soup.get_text(separator="\n", strip=True)
+
+
 def extract_text_md(file_path: str) -> str:
     with open(file_path, "r", encoding="utf-8") as f:
         md_content = f.read()
@@ -41,9 +47,9 @@ def extract_text_md(file_path: str) -> str:
         soup = BeautifulSoup(html, "html.parser")
         return soup.get_text(separator="\n", strip=True)
 
+
 def extract_text(file_path: str) -> str:
     ext = os.path.splitext(file_path)[1].lower()
-
     if ext == ".pdf":
         return extract_text_pdf(file_path)
     elif ext == ".docx":
@@ -66,6 +72,7 @@ def clean_text(text: str) -> str:
         if line:
             cleaned_lines.append(line)
     return " ".join(cleaned_lines)
+
 
 def chunk_text(text: str, chunk_size: int = CHUNK_SIZE, chunk_overlap: int = CHUNK_OVERLAP) -> list:
     splitter = RecursiveCharacterTextSplitter(
@@ -100,20 +107,23 @@ def process_all_documents(raw_dir: str = RAW_DIR, output_dir: str = OUTPUT_DIR) 
 
     if not all_files:
         print(f"No supported files found in {raw_dir}")
-        print(f"Supported formats: {', '.join(SUPPORTED_FORMATS)}")
         return
 
     for file_name in all_files:
         file_path = os.path.join(raw_dir, file_name)
-        print(f"Processing: {file_name}")
         try:
             chunks = process_document(file_path)
             all_chunks.extend(chunks)
+            print(f"Processed: {file_name} -> {len(chunks)} chunks")
         except Exception as e:
-            print(f"  -> Error: {e}")
+            print(f"Error processing {file_name}: {e}")
 
     output_path = os.path.join(output_dir, "chunks.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(all_chunks, f, indent=2, ensure_ascii=False)
+
+    print(f"Total: {len(all_chunks)} chunks saved to {output_path}")
+
+
 if __name__ == "__main__":
     process_all_documents()
