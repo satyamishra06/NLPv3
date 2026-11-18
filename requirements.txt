@@ -1,0 +1,10 @@
+pdfplumber
+python-docx
+beautifulsoup4
+markdown
+langchain
+langchain-text-splitters
+faiss-cpu
+sentence-transformers
+numpy
+ollama

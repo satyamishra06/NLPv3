@@ -1,0 +1,31 @@
+[
+  {"id": 1, "query": "What documents are required for admission?", "category": "admissions", "answer_in_kb": true, "expected_doc": "admissions_faq.docx"},
+  {"id": 2, "query": "How can I apply for admission?", "category": "admissions", "answer_in_kb": true, "expected_doc": "admissions_faq.docx"},
+  {"id": 3, "query": "What is the eligibility requirement for undergraduate programmes?", "category": "admissions", "answer_in_kb": true, "expected_doc": "admissions_faq.docx"},
+  {"id": 4, "query": "Can international students apply for admission?", "category": "admissions", "answer_in_kb": true, "expected_doc": "admissions_faq.docx"},
+  {"id": 5, "query": "Whom should I contact for admission-related queries?", "category": "admissions", "answer_in_kb": true, "expected_doc": "contact_info.docx"},
+
+  {"id": 6, "query": "What types of fees may students need to pay?", "category": "fees", "answer_in_kb": true, "expected_doc": "fee_structure.docx"},
+  {"id": 7, "query": "Is the hostel fee included in the tuition fee?", "category": "fees", "answer_in_kb": true, "expected_doc": "fee_structure.docx"},
+  {"id": 8, "query": "Can fees be paid online?", "category": "fees", "answer_in_kb": true, "expected_doc": "fee_structure.docx"},
+  {"id": 9, "query": "Whom should I contact for fee-related issues?", "category": "fees", "answer_in_kb": true, "expected_doc": "contact_info.docx"},
+  {"id": 10, "query": "Can I pay my annual fee using cryptocurrency?", "category": "fees", "answer_in_kb": false, "expected_doc": null},
+
+  {"id": 11, "query": "When are semester examinations conducted?", "category": "examinations", "answer_in_kb": true, "expected_doc": "exam_schedule.docx"},
+  {"id": 12, "query": "What should I do if I miss an examination?", "category": "examinations", "answer_in_kb": true, "expected_doc": "exam_schedule.docx"},
+  {"id": 13, "query": "How can a student apply for a re-examination?", "category": "examinations", "answer_in_kb": true, "expected_doc": "exam_schedule.docx"},
+  {"id": 14, "query": "Where can I find the examination timetable?", "category": "examinations", "answer_in_kb": true, "expected_doc": "exam_schedule.docx"},
+  {"id": 15, "query": "What are the passing marks for the theory exam?", "category": "examinations", "answer_in_kb": false, "expected_doc": null},
+
+  {"id": 16, "query": "What are the library operating hours?", "category": "library", "answer_in_kb": true, "expected_doc": "library_info.docx"},
+  {"id": 17, "query": "How many books can a student borrow?", "category": "library", "answer_in_kb": true, "expected_doc": "library_info.docx"},
+  {"id": 18, "query": "What happens if a book is returned late?", "category": "library", "answer_in_kb": true, "expected_doc": "library_info.docx"},
+  {"id": 19, "query": "What should a student do if they lose their library card?", "category": "library", "answer_in_kb": true, "expected_doc": "library_info.docx"},
+  {"id": 20, "query": "How many e-books does the university digital library offer?", "category": "library", "answer_in_kb": false, "expected_doc": null},
+
+  {"id": 21, "query": "Who can apply for hostel accommodation?", "category": "hostel", "answer_in_kb": true, "expected_doc": "hostel_rules.docx"},
+  {"id": 22, "query": "What are the mess timings?", "category": "hostel", "answer_in_kb": true, "expected_doc": "hostel_rules.docx"},
+  {"id": 23, "query": "Are guests allowed to stay overnight?", "category": "hostel", "answer_in_kb": true, "expected_doc": "hostel_rules.docx"},
+  {"id": 24, "query": "What is the exact hostel fee for a non-AC room?", "category": "hostel", "answer_in_kb": false, "expected_doc": null},
+  {"id": 25, "query": "Does the hostel have a swimming pool?", "category": "hostel", "answer_in_kb": false, "expected_doc": null}
+]
