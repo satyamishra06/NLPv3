@@ -8,8 +8,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 CHUNK_SIZE = 400
 CHUNK_OVERLAP = 50
-RAW_DIR = "data/raw"
-OUTPUT_DIR = "data/output"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(BASE_DIR)
+RAW_DIR = os.path.join(PROJECT_DIR, "data", "raw")
+OUTPUT_DIR = os.path.join(PROJECT_DIR, "data", "output")
 SUPPORTED_FORMATS = (".pdf", ".docx", ".txt", ".html", ".md")
 
 

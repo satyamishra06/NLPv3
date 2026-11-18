@@ -6,10 +6,12 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 import ollama
 
-CHUNKS_PATH = "data/output/chunks.json"
-FAISS_INDEX_DIR = "models/faiss_index"
-SYSTEM_PROMPT_PATH = "prompts/system_prompt.txt"
-FEW_SHOT_PATH = "prompts/few_shot_examples.json"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(BASE_DIR)
+CHUNKS_PATH = os.path.join(PROJECT_DIR, "data", "output", "chunks.json")
+FAISS_INDEX_DIR = os.path.join(PROJECT_DIR, "models", "faiss_index")
+SYSTEM_PROMPT_PATH = os.path.join(PROJECT_DIR, "prompts", "system_prompt.txt")
+FEW_SHOT_PATH = os.path.join(PROJECT_DIR, "prompts", "few_shot_examples.json")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 OLLAMA_MODEL = "llama3.2"
 TOP_K = 3
